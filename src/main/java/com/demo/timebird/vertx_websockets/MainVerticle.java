@@ -2,19 +2,17 @@ package com.demo.timebird.vertx_websockets;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
-import io.vertx.core.impl.logging.Logger;
-import io.vertx.core.impl.logging.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MainVerticle extends AbstractVerticle {
 
-  /*Test client at https://websocketking.com/*/
-
-  private final Logger LOG = LoggerFactory.getLogger(MainVerticle.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MainVerticle.class);
 
   @Override
   public void start(Promise<Void> startPromise) throws Exception {
     vertx.createHttpServer()
-      .webSocketHandler(new WebSocketHandler())
+      .webSocketHandler(new WebSocketHandler(vertx))
       .listen(8900, http -> {
         if (http.succeeded()) {
           startPromise.complete();

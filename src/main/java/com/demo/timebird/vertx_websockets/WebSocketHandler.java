@@ -1,43 +1,53 @@
 package com.demo.timebird.vertx_websockets;
 
-import io.vertx.core.Future;
+import com.demo.timebird.vertx_websockets.PriceBroadcast;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.vertx.core.Handler;
+import io.vertx.core.Vertx;
 import io.vertx.core.http.ServerWebSocket;
 import io.vertx.core.http.WebSocketFrame;
-import io.vertx.core.impl.logging.Logger;
-import io.vertx.core.impl.logging.LoggerFactory;
 
 public class WebSocketHandler implements Handler<ServerWebSocket> {
 
-  private final Logger LOG = LoggerFactory.getLogger(WebSocketHandler.class);
-  public static final String PATH = "ws/simple/prices";
-  public static final String DISCONNECT = "Disconnect me";
+  private static final Logger LOG = LoggerFactory.getLogger(WebSocketHandler.class);
+  public static final String PATH = "/ws/simple/prices";
+  private final PriceBroadcast broadcast;
+
+  public WebSocketHandler(final Vertx vertx) {
+    this.broadcast = new PriceBroadcast(vertx);
+  }
 
   @Override
-  public void handle(ServerWebSocket ws) {
-    if (PATH.equalsIgnoreCase(ws.path())) {
-      LOG.info("Rejected wrong path: " + ws.path());
+  public void handle(final ServerWebSocket ws) {
+    if (!PATH.equalsIgnoreCase(ws.path())) {
+      LOG.info("Rejected wrong path: {}", ws.path());
       ws.writeFinalTextFrame("Wrong path. Only " + PATH + " is accepted!");
       closeClient(ws);
       return;
     }
-    LOG.info("Opening web socket connection: " + ws.path() + " ID: " + ws.textHandlerID());
+    LOG.info("Opening web socket connection: {}, {}", ws.path(), ws.textHandlerID());
     ws.accept();
     ws.frameHandler(frameHandler(ws));
-    ws.endHandler(onClose -> LOG.info("Closed " + ws.textHandlerID()));
-    ws.exceptionHandler(err -> LOG.error("FAILED! ", err));
+    ws.endHandler(onClose -> {
+      LOG.info("Closed {}", ws.textHandlerID());
+      broadcast.unregister(ws);
+    });
+    ws.exceptionHandler(err -> LOG.error("Failed: ", err));
     ws.writeTextMessage("Connected!");
+    broadcast.register(ws);
   }
 
-  private Handler<WebSocketFrame> frameHandler(ServerWebSocket ws) {
+  private Handler<WebSocketFrame> frameHandler(final ServerWebSocket ws) {
     return received -> {
       final String message = received.textData();
-      LOG.debug("Received message " + message + " from client " + ws.textHandlerID());
-      if (DISCONNECT.equalsIgnoreCase(message)) {
+      LOG.debug("Received message: {} from client {}", message, ws.textHandlerID());
+      if ("disconnect me".equalsIgnoreCase(message)) {
         LOG.info("Client close requested!");
         closeClient(ws);
       } else {
-        ws.writeTextMessage("Not supported (" + message + ")");
+        ws.writeTextMessage("Not supported => (" + message + ")");
       }
     };
   }
