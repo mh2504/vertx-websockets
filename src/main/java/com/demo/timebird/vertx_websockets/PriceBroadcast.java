@@ -2,9 +2,9 @@ package com.demo.timebird.vertx_websockets;
 
 import io.vertx.core.Vertx;
 import io.vertx.core.http.ServerWebSocket;
+import io.vertx.core.impl.logging.Logger;
+import io.vertx.core.impl.logging.LoggerFactory;
 import io.vertx.core.json.JsonObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 import java.util.HashMap;
@@ -22,7 +22,7 @@ public class PriceBroadcast {
 
   private void periodicUpdate(final Vertx vertx) {
     vertx.setPeriodic(Duration.ofSeconds(1).toMillis(), id -> {
-      LOG.debug("Push update to {} client(s)!", connectedClients.size());
+      LOG.info("Push update to " + connectedClients.size() +" client(s)!");
       final String priceUpdate = new JsonObject()
         .put("symbol", "AMZN")
         .put("value", new Random().nextInt(1000))

@@ -1,13 +1,13 @@
 package com.demo.timebird.vertx_websockets;
 
-import com.demo.timebird.vertx_websockets.PriceBroadcast;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.ServerWebSocket;
 import io.vertx.core.http.WebSocketFrame;
+import io.vertx.core.impl.logging.Logger;
+import io.vertx.core.impl.logging.LoggerFactory;
 
 public class WebSocketHandler implements Handler<ServerWebSocket> {
 
@@ -22,16 +22,16 @@ public class WebSocketHandler implements Handler<ServerWebSocket> {
   @Override
   public void handle(final ServerWebSocket ws) {
     if (!PATH.equalsIgnoreCase(ws.path())) {
-      LOG.info("Rejected wrong path: {}", ws.path());
+      LOG.info("Rejected wrong path: " + ws.path());
       ws.writeFinalTextFrame("Wrong path. Only " + PATH + " is accepted!");
       closeClient(ws);
       return;
     }
-    LOG.info("Opening web socket connection: {}, {}", ws.path(), ws.textHandlerID());
+    LOG.info("Opening web socket connection: " + ws.path() + " ID: " + ws.textHandlerID());
     ws.accept();
     ws.frameHandler(frameHandler(ws));
     ws.endHandler(onClose -> {
-      LOG.info("Closed {}", ws.textHandlerID());
+      LOG.info("Closed " + ws.textHandlerID());
       broadcast.unregister(ws);
     });
     ws.exceptionHandler(err -> LOG.error("Failed: ", err));
@@ -42,7 +42,7 @@ public class WebSocketHandler implements Handler<ServerWebSocket> {
   private Handler<WebSocketFrame> frameHandler(final ServerWebSocket ws) {
     return received -> {
       final String message = received.textData();
-      LOG.debug("Received message: {} from client {}", message, ws.textHandlerID());
+      LOG.debug("Received message: " + message +" from client " + ws.textHandlerID());
       if ("disconnect me".equalsIgnoreCase(message)) {
         LOG.info("Client close requested!");
         closeClient(ws);

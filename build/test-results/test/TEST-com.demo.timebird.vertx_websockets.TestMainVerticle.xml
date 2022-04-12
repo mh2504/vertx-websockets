@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.demo.timebird.vertx_websockets.TestMainVerticle" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-04-12T02:23:27" hostname="DESKTOP-VNE3KTL" time="7.085">
+  <properties/>
+  <testcase name="can_receive_multiple_messages(Vertx, VertxTestContext)" classname="com.demo.timebird.vertx_websockets.TestMainVerticle" time="6.968"/>
+  <testcase name="can_connect_to_web_socket_server(Vertx, VertxTestContext)" classname="com.demo.timebird.vertx_websockets.TestMainVerticle" time="0.116"/>
+  <system-out><![CDATA[?[33m09:23:29.190?[0;39m ?[34mINFO?[0;39m ?[32m[vert.x-eventloop-thread-0]?[0;39m ?[36mcom.demo.timebird.vertx_websockets.MainVerticle?[0;39m - HTTP server started on port 8900
+?[33m09:23:29.979?[0;39m ?[34mINFO?[0;39m ?[32m[vert.x-eventloop-thread-0]?[0;39m ?[36mc.demo.timebird.vertx_websockets.WebSocketHandler?[0;39m - Opening web socket connection: /ws/simple/prices, __vertx.ws.c4619396-d479-434d-9f1a-0bf8d93fc050
+?[33m09:23:34.578?[0;39m ?[34mINFO?[0;39m ?[32m[vert.x-eventloop-thread-0]?[0;39m ?[36mc.demo.timebird.vertx_websockets.WebSocketHandler?[0;39m - Closed __vertx.ws.c4619396-d479-434d-9f1a-0bf8d93fc050
+?[33m09:23:34.699?[0;39m ?[34mINFO?[0;39m ?[32m[vert.x-eventloop-thread-0]?[0;39m ?[36mcom.demo.timebird.vertx_websockets.MainVerticle?[0;39m - HTTP server started on port 8900
+?[33m09:23:34.710?[0;39m ?[34mINFO?[0;39m ?[32m[vert.x-eventloop-thread-0]?[0;39m ?[36mc.demo.timebird.vertx_websockets.WebSocketHandler?[0;39m - Opening web socket connection: /ws/simple/prices, __vertx.ws.d8e8b28f-c843-44da-b870-a605ed10a4a2
+?[33m09:23:34.729?[0;39m ?[34mINFO?[0;39m ?[32m[vert.x-eventloop-thread-0]?[0;39m ?[36mc.demo.timebird.vertx_websockets.WebSocketHandler?[0;39m - Closed __vertx.ws.d8e8b28f-c843-44da-b870-a605ed10a4a2
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

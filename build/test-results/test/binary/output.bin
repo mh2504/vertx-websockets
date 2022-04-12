@@ -1,0 +1,6 @@
+²[33m09:23:29.190[0;39m [34mINFO[0;39m [32m[vert.x-eventloop-thread-0][0;39m [36mcom.demo.timebird.vertx_websockets.MainVerticle[0;39m - HTTP server started on port 8900
+õ[33m09:23:29.979[0;39m [34mINFO[0;39m [32m[vert.x-eventloop-thread-0][0;39m [36mc.demo.timebird.vertx_websockets.WebSocketHandler[0;39m - Opening web socket connection: /ws/simple/prices, __vertx.ws.c4619396-d479-434d-9f1a-0bf8d93fc050
+Ê[33m09:23:34.578[0;39m [34mINFO[0;39m [32m[vert.x-eventloop-thread-0][0;39m [36mc.demo.timebird.vertx_websockets.WebSocketHandler[0;39m - Closed __vertx.ws.c4619396-d479-434d-9f1a-0bf8d93fc050
+²[33m09:23:34.699[0;39m [34mINFO[0;39m [32m[vert.x-eventloop-thread-0][0;39m [36mcom.demo.timebird.vertx_websockets.MainVerticle[0;39m - HTTP server started on port 8900
+õ[33m09:23:34.710[0;39m [34mINFO[0;39m [32m[vert.x-eventloop-thread-0][0;39m [36mc.demo.timebird.vertx_websockets.WebSocketHandler[0;39m - Opening web socket connection: /ws/simple/prices, __vertx.ws.d8e8b28f-c843-44da-b870-a605ed10a4a2
+Ê[33m09:23:34.729[0;39m [34mINFO[0;39m [32m[vert.x-eventloop-thread-0][0;39m [36mc.demo.timebird.vertx_websockets.WebSocketHandler[0;39m - Closed __vertx.ws.d8e8b28f-c843-44da-b870-a605ed10a4a2
